@@ -7,117 +7,58 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './dinamic-forms.component.html',
   styleUrls: ['./dinamic-forms.component.css']
 })
-export class DinamicFormsComponent implements OnInit, DoCheck {
+export class DinamicFormsComponent implements OnInit {
   @ViewChild("element") element: ElementRef;
   formArray: any;
   registrationForm!: FormGroup;
   @ViewChild('formdynamic') formDynamic: ElementRef;
 
   constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private elRef: ElementRef,
-    private renderer: Renderer2
-  ) { }
-  ngDoCheck(): void {
+    private _fb: FormBuilder,
+    private _http: HttpClient,
+    private _renderer: Renderer2
+  ) {
   }
 
   ngOnInit(): void {
-
-    this.registrationForm = this.fb.group({});
-
-    this.http.get('assets/metadata/userForm.json').subscribe(data => {
-        this.formArray = data;
-        console.log(this.formArray);
-        this.createFormControl();
-      });
-
-
+    this.registrationForm = this._fb.group({});
   }
+
 
   ngAfterViewInit() {
-    this.renderer.addClass(this.element.nativeElement, "claseNueva");
-    // ElementRef: { nativeElement: <input> }
-    console.log(this.formDynamic);
-
-    // Access the input object or DOM node
-    console.dir(this.formDynamic.nativeElement);
-
-  /*  this.formDynamic.nativeElement.querySelectorAll('input').forEach((item: any) => {
-      this.renderer.listen(item, 'click', (event: any) => {
-        
+    this.createFormControl();   
+    this.addListeners();
+  }
+ 
+  createFormControl(): void {
+    this._http.get('assets/metadata/userForm.json').subscribe(data => {
+      this.formArray = data;
+      console.log(this.formArray);
+      this.formArray.forEach((element: any) => {
+        this.registrationForm.addControl(
+          element.ID, element.Required ? new FormControl(
+            element.Value || '', { validators: Validators.required }
+          ) : new FormControl(element.Value || ''))
       });
     });
-*/
 
-/*
+  }
 
-  this.http.get('assets/metadata/userForm.json').subscribe(data => {
+  addListeners() : void {
+    this._http.get('assets/metadata/userForm.json').subscribe(data => {
     this.formArray = data;
     this.formArray.forEach((element: any) => {
-      const selectInput = this.formDynamic.nativeElement.querySelector('#'+element.ID);
-      console.log(selectInput);
-      console.log(element);
-      this.renderer.listen(selectInput, element.event, (event: any) => {
-        console.log("event");
-          this.onChangeMethod(event);
-      }); 
+      var selectInput = this._renderer.selectRootElement('#' + element.ID);
+      this._renderer.listen(selectInput, element.event, () => { console.log('focus'); });
     });
   }); 
-*/
-
-/*
-this.formDynamic.nativeElement.querySelectorAll('input').forEach(( item: any ) => {
-                    this.renderer.listen(item, 'click', (event: any) => {
-                      console.log("event");
-                      this.onChangeMethod(event);
-                    });
-                });
-*/
-
-this.addListeners();
-  }
-
-
-  createFormControl() {
-    this.formArray.forEach((element: any) => {
-      this.registrationForm.addControl(
-        element.ID, element.Required ? new FormControl(
-          element.Value || '', { validators: Validators.required}
-          ): new FormControl(element.Value || ''))
-    });
-
-
-  }
-
-  addListeners(){
-    this.http.get('assets/metadata/userForm.json').subscribe(data => {
-      this.formArray = data;
-      this.formArray.forEach((element: any) => {
-        const selectInput = this.formDynamic.nativeElement.querySelector('#'+element.ID);
-        console.log(selectInput);
-        console.log(element);
-        this.renderer.listen(selectInput, element.event, (event: any) => {
-          console.log("event");
-            this.onChangeMethod(event);
-        }); 
-      });
-    }); 
-  }
-
-  getFormControl(selectedId){
-    this.elRef.nativeElement.select("#"+selectedId);
   }
 
   save() {
-    console.log(this.registrationForm.controls);
-    
+    console.log(this.registrationForm.controls);  
   }
 
-
-  onChangeMethod($event){
+  eventMethod($event){
       console.log($event);
-      console.log("onchange");
   }
-
 }

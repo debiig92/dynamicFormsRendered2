@@ -6,7 +6,7 @@
       "Value":"",
       "Required": "true",
       "ErrorMessage": "Invalid name",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
     },
     {
@@ -16,7 +16,7 @@
       "Value":"",
       "Required": "true",
       "ErrorMessage": "Invalid last name",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
     },
     {
@@ -26,7 +26,7 @@
       "Value":"",
       "Required": "true",
       "ErrorMessage": "Invalid date",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
     },
   
@@ -37,7 +37,7 @@
       "Value":"",
       "Required": "true",
       "ErrorMessage": "Invalid movile number",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
 
     },
@@ -49,7 +49,7 @@
       "Value":"",
       "Required": "true",
       "ErrorMessage": "Invalid email",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
     },
   
@@ -60,7 +60,7 @@
       "Required": "true",
       "Values":"Male,Female",
       "ErrorMessage": "Invalid gender",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
     },
   
@@ -71,7 +71,7 @@
       "Value":"",
       "Required": "true",
       "ErrorMessage": "Invalid addres",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
     },
     {
@@ -82,7 +82,7 @@
       "Value":"-1",
       "Required": "true",
       "ErrorMessage": "Select a valid city",
-      "event" : "click",
+      "event" : "focus",
       "function" : "this.show($event)"
     }
   ]

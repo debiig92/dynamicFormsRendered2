@@ -34,7 +34,7 @@
                             <div class="mt-4 inline-flex space-x-4">
                                 <div class="flex flex-row items-center" *ngFor="let val of control.Values.split(',')">
                                     <input  [id]="control.ID" [name]="control.ID" [value]="val" type="radio" [formControlName]="control.ID"
-                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" (control.event)="control.function">
+                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
                                     <label for="push_everything" class="ml-3 block text-sm font-medium text-gray-700">
                                         {{val}}
                                     </label>
@@ -46,7 +46,7 @@
                     <div *ngSwitchCase="'select'">
                         <label [for]="control.ID"
                             class="block text-sm font-medium text-gray-700">{{control.Label}}</label>
-                        <select [id]="control.ID" [name]="control.ID" [formControlName]="control.ID"  (control.event)="control.function"
+                        <select [id]="control.ID" [name]="control.ID" [formControlName]="control.ID" 
                             class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="-1" disabled>Select a {{control.Label}} </option>
                             <option *ngFor="let val of control.Values.split(',')" value="{{val}}"> {{val}} </option>
@@ -63,7 +63,7 @@
                                 class="block text-sm font-medium text-gray-700">{{control.Label}}</label>
                             <input   
                                 class="mt-1 py-2 px-2 w-full shadow-sm border border-gray-300 focus:border-green-500 rounded-md"
-                                type="date" name="marca" [id]="control.ID"[formControlName]="control.ID"  (control.event)="control.function">
+                                type="date" name="marca" [id]="control.ID"[formControlName]="control.ID" >
                             <p class="text-sm text-red-500"
                                 *ngIf="registrationForm.get(control.ID).invalid && registrationForm.get(control.ID).touched">
                                 {{control.ErrorMessage}}</p>
